@@ -1,5 +1,7 @@
 # gen_registry ETS Race Condition
 
+https://github.com/discord/gen_registry/issues/15
+
 Minimal reproduction of a race condition in `gen_registry` where `lookup_or_start/3` can return PIDs of dead processes.
 
 ## The Problem

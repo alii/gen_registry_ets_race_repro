@@ -40,27 +40,6 @@ Output:
 
 ~98% reproduction rate.
 
-## Suggested Fix
-
-Before returning a PID from lookup, verify the process is still alive:
-
-```elixir
-def lookup(module, id) do
-  case :ets.lookup(table, id) do
-    [{^id, pid}] ->
-      if Process.alive?(pid) do
-        {:ok, pid}
-      else
-        # Stale entry - EXIT message in flight, clean up proactively
-        :ets.delete(table, id)
-        {:error, :not_found}
-      end
-    [] ->
-      {:error, :not_found}
-  end
-end
-```
-
 ## Environment
 
 - Elixir: 1.19
